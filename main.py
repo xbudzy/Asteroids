@@ -35,10 +35,16 @@ def main():
             if event.type == pygame.QUIT:
                 return
         
-        #limit the framerate to 60FPSa
+        #limit the framerate to 60FPS
         dt = clock.tick(60) / 1000
         updatable.update(dt)
 
+        for asteroid in asteroids:
+            for shot in shots:
+                if shot.collisionCheck(asteroid):
+                    pygame.sprite.Sprite.kill(shot)
+                    asteroid.split()
+   
         for asteroid in asteroids:
             if player.collisionCheck(asteroid):
                 print("Game Over!")
